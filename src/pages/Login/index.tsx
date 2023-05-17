@@ -1,4 +1,3 @@
-import * as React from "react";
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
@@ -30,7 +29,10 @@ const Login = () => {
       rememberMe: false,
     },
   });
-  const onSubmit: SubmitHandler<FormData> = (data) => console.log(data);
+  const onSubmit: SubmitHandler<FormData> = (data) => {
+    console.log(data);
+    reset({ email: "", password: "", rememberMe: false });
+  };
 
   return (
     <Container component="main" maxWidth="xs">
@@ -109,7 +111,7 @@ const Login = () => {
             type="submit"
             fullWidth
             variant="contained"
-            sx={{ mt: 3, mb: 2 }}
+            sx={{ mt: 3, mb: 2, p: 1 }}
           >
             Iniciar Sesion
           </Button>
