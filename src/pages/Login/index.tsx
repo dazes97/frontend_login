@@ -12,7 +12,8 @@ import Copyright from "../../components/Copyright";
 import { Controller, useForm, SubmitHandler } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
-import loginSchema from "./validation.schema";
+import loginSchema from "../Login/validation";
+import Connection from "../../helpers/connection";
 
 const Login = () => {
   type FormData = yup.InferType<typeof loginSchema>;
@@ -29,8 +30,8 @@ const Login = () => {
       rememberMe: false,
     },
   });
-  const onSubmit: SubmitHandler<FormData> = (data) => {
-    console.log(data);
+  const onSubmit: SubmitHandler<FormData> = async (data) => {
+    const response = await Connection.postService({ url: "", data });
     reset({ email: "", password: "", rememberMe: false });
   };
 
