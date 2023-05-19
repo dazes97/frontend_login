@@ -1,2 +1,3 @@
-import PAGES from "./page";
-export { PAGES };
+import PAGE from "./page";
+import API_URL from "./url";
+export { PAGE, API_URL };

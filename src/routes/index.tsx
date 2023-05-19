@@ -1,4 +1,4 @@
-import { PAGES } from "../helpers";
+import { PAGE } from "../helpers";
 import { Login, MainPage, Product } from "../pages";
 import { createBrowserRouter } from "react-router-dom";
 const Router = createBrowserRouter([
@@ -7,11 +7,11 @@ const Router = createBrowserRouter([
     element: <MainPage />,
   },
   {
-    path: PAGES.LOGIN.PAGE.URL,
+    path: PAGE.LOGIN.PAGE.URL,
     element: <Login />,
   },
   {
-    path: PAGES.PRODUCTS.PAGE.URL,
+    path: PAGE.PRODUCTS.PAGE.URL,
     element: <Product />,
   },
   { path: "*", element: <p>PAGINA NO ENCONTRADA</p> },

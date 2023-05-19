@@ -14,6 +14,8 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import loginSchema from "../Login/validation";
 import Connection from "../../helpers/connection";
+import { API_URL } from "../../helpers";
+import LocalStorageHelper from "../../helpers/localStorage";
 
 const Login = () => {
   type FormData = yup.InferType<typeof loginSchema>;
@@ -30,9 +32,22 @@ const Login = () => {
       rememberMe: false,
     },
   });
-  const onSubmit: SubmitHandler<FormData> = async (data) => {
-    const response = await Connection.postService({ url: "", data });
-    reset({ email: "", password: "", rememberMe: false });
+  const onSubmit: SubmitHandler<FormData> = async (dataToSend) => {
+    try {
+      const { data } = await Connection.postService({
+        url: API_URL.LOGIN.INDEX,
+        data: dataToSend,
+      });
+      if (data?.accessToken && data?.refreshToken) {
+        LocalStorageHelper.setStorage("access_token", data.accessToken);
+        LocalStorageHelper.setStorage("refresh_token", data.refreshToken);
+        reset({ email: "", password: "", rememberMe: false });
+      } else {
+        console.log("error al iniciar sesion");
+      }
+    } catch (e) {
+      console.log("error: ", e);
+    }
   };
 
   return (

@@ -1,4 +1,4 @@
-const PAGES = {
+const PAGE = {
   NOT_FOUND: {
     PAGE: {
       NAME: "No Encontrado",
@@ -30,4 +30,4 @@ const PAGES = {
     },
   },
 };
-export default PAGES;
+export default PAGE;
