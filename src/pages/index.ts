@@ -1,4 +1,3 @@
-import Login from "./login";
-import Product from "./product";
-import MainPage from "./dashboard";
-export { Login, Product, MainPage };
+import Login from "../pages/login";
+import MainPage from "../pages/dashboard";
+export { Login, MainPage };

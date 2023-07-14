@@ -9,6 +9,6 @@ const loginSchema = yup.object({
     .string()
     .max(255, "Contraseña Excede la longitud Permitida")
     .required("Contraseña Requerida"),
-  rememberMe: yup.boolean(),
+  rememberMe: yup.boolean().required(),
 });
 export default loginSchema;

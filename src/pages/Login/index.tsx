@@ -1,131 +1,108 @@
-import Avatar from "@mui/material/Avatar";
-import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
-import TextField from "@mui/material/TextField";
-import FormControlLabel from "@mui/material/FormControlLabel";
-import Checkbox from "@mui/material/Checkbox";
-import Link from "@mui/material/Link";
-import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
-import Container from "@mui/material/Container";
-import Copyright from "../../components/Copyright";
-import { Controller, useForm, SubmitHandler } from "react-hook-form";
-import { yupResolver } from "@hookform/resolvers/yup";
-import * as yup from "yup";
-import loginSchema from "./validation.schema";
-
+import Grid from "@mui/material/Grid";
+import Typography from "@mui/material/Typography";
+import TextField from "@mui/material/TextField";
+import Button from "@mui/material/Button";
+import { FcGoogle } from "react-icons/fc";
+import Paper from "@mui/material/Paper";
 const Login = () => {
-  type FormData = yup.InferType<typeof loginSchema>;
-  const {
-    handleSubmit,
-    control,
-    reset,
-    formState: { errors },
-  } = useForm<FormData>({
-    resolver: yupResolver(loginSchema),
-    defaultValues: {
-      email: "",
-      password: "",
-      rememberMe: false,
-    },
-  });
-  const onSubmit: SubmitHandler<FormData> = (data) => {
-    console.log(data);
-    reset({ email: "", password: "", rememberMe: false });
+  const containerStyles = {
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "center",
+    alignItems: "center",
+    height: "100vh",
+    width: "100vw",
   };
+  const gridImageLeftStyles = {
+    display: {
+      xs: "none",
+      md: "block",
+    },
+  };
+  const imageStyles = { width: "100%", height: "70vh" };
 
+  const onSubmitForm = (e: any) => {
+    e.preventDefault();
+  };
   return (
-    <Container component="main" maxWidth="xs">
+    <>
       <CssBaseline />
-      <Box
-        sx={{
-          marginTop: 8,
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-        }}
-      >
-        <Avatar
-          sx={{ m: 1, bgcolor: "secondary.main", width: 120, height: 70 }}
-          src="/elFacturadorLogo.PNG"
-          variant="square"
-        ></Avatar>
-        <Box
-          component="form"
-          onSubmit={handleSubmit(onSubmit)}
-          noValidate
-          sx={{ mt: 1 }}
+      <Box sx={containerStyles}>
+        <Grid
+          container
+          justifyContent="center"
+          alignItems="center"
+          flexDirection="row"
         >
-          <Controller
-            name="email"
-            control={control}
-            render={({ field }) => (
-              <TextField
-                {...field}
-                margin="normal"
-                required
+          <Grid item xs={12} md={5} sx={gridImageLeftStyles}>
+            <img src="/img/login.svg" style={imageStyles} />
+          </Grid>
+          <Grid
+            item
+            xs={12}
+            md={7}
+            sx={{ px: { xs: "10vw", md: "12vw", lg: "12vw" } }}
+          >
+            <Typography variant="h5" sx={{ fontWeight: "600", mb: 2 }}>
+              Sign In to Dsoft
+            </Typography>
+            <Paper variant="outlined">
+              <Button
+                size="large"
                 fullWidth
-                id="email"
-                label="Correo Electronico"
+                startIcon={<FcGoogle />}
+                sx={{ color: "black", textTransform: "none", py: 1.5 }}
+              >
+                Sign in with Google
+              </Button>
+            </Paper>
+            <Box sx={{ textAlign: "center", my: 3 }}>
+              <Typography variant="body2">Or sign in with email</Typography>
+            </Box>
+            <Box component="form" noValidate onSubmit={(e) => onSubmitForm(e)}>
+              <Typography sx={{ fontWeight: 600 }}>
+                Username or Email
+              </Typography>
+              <TextField
                 name="email"
                 autoComplete="email"
-                autoFocus
-                error={errors.email ? true : false}
-                helperText={errors.email?.message ?? ""}
-              />
-            )}
-          />
-          <Controller
-            name="password"
-            control={control}
-            render={({ field }) => (
-              <TextField
-                {...field}
-                margin="normal"
+                id="email"
+                type="email"
+                margin="dense"
+                size="small"
                 required
                 fullWidth
+              />
+              <Typography sx={{ fontWeight: 600 }}>Password</Typography>
+              <TextField
                 name="password"
-                label="Contraseña"
-                type="password"
+                autoComplete="password"
                 id="password"
-                autoComplete="current-password"
-                error={errors.password ? true : false}
-                helperText={errors.password?.message ?? ""}
+                type="password"
+                margin="dense"
+                size="small"
+                required
+                fullWidth
               />
-            )}
-          />
-          <Controller
-            name="rememberMe"
-            control={control}
-            render={({ field }) => (
-              <FormControlLabel
-                {...field}
-                control={
-                  <Checkbox value="remember" id="rememberMe" color="primary" />
-                }
-                label="Recuerdame"
-              />
-            )}
-          />
-          <Button
-            type="submit"
-            fullWidth
-            variant="contained"
-            sx={{ mt: 3, mb: 2, p: 1 }}
-          >
-            Iniciar Sesion
-          </Button>
-          <Grid container>
-            <Grid item xs>
-              <Link href="#" variant="body2">
-                ¿Olvidaste tu contraseña?
-              </Link>
-            </Grid>
+              <Button
+                type="submit"
+                variant="contained"
+                fullWidth
+                size="large"
+                sx={{ textTransform: "none", my: 2, borderRadius: 2, py: 1.5 }}
+              >
+                Sign In
+              </Button>
+              <Typography variant="subtitle2">
+                Don't have an account? <a href="#">Sign up</a>
+              </Typography>
+            </Box>
           </Grid>
-        </Box>
+        </Grid>
       </Box>
-      <Copyright sx={{ mt: 8, mb: 4 }} />
-    </Container>
+    </>
   );
 };
 export default Login;

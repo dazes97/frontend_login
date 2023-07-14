@@ -11,10 +11,9 @@ const Copyright = (props: any) => {
     >
       {"Copyright © "}
       <Link color="inherit" href="http://localhost">
-        El Facturador
-      </Link>{" "}
+        Dsoft Technologies
+      </Link>
       {new Date().getFullYear()}
-      {"."}
     </Typography>
   );
 };

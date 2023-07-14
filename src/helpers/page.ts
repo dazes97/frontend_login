@@ -5,12 +5,6 @@ const PAGES = {
       URL: "/notFound",
     },
   },
-  PRODUCTS: {
-    PAGE: {
-      NAME: "Productos",
-      URL: "/products",
-    },
-  },
   LOGIN: {
     PAGE: {
       NAME: "Iniciar Sesion",
