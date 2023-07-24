@@ -1,3 +1,3 @@
-import Login from "../pages/login";
-import MainPage from "../pages/dashboard";
+import Login from "./Login";
+import MainPage from "./Dashboard";
 export { Login, MainPage };

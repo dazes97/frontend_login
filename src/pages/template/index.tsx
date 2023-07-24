@@ -1,24 +1,23 @@
 import * as React from "react";
-import { styled, useTheme } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
 import MuiDrawer from "@mui/material/Drawer";
 import Box from "@mui/material/Box";
-import MuiAppBar, { AppBarProps as MuiAppBarProps } from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
 import List from "@mui/material/List";
 import Typography from "@mui/material/Typography";
 import Divider from "@mui/material/Divider";
 import IconButton from "@mui/material/IconButton";
-import Badge from "@mui/material/Badge";
 import Container from "@mui/material/Container";
 import MenuIcon from "@mui/icons-material/Menu";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
-import NotificationsIcon from "@mui/icons-material/Notifications";
-import { mainListItems } from "./listItems";
 import Copyright from "../../components/Copyright";
 import useMediaQuery from "@mui/material/useMediaQuery";
-import { useEffect } from "react";
 import Paper from "@mui/material/Paper";
+import { mainListItems } from "./listItems";
+import { useEffect } from "react";
+import { styled, useTheme } from "@mui/material/styles";
+import MuiAppBar, { AppBarProps as MuiAppBarProps } from "@mui/material/AppBar";
+import { AccountMenu, NotificationMenu } from "./components";
 const drawerWidth: number = 240;
 
 interface AppBarProps extends MuiAppBarProps {
@@ -72,23 +71,27 @@ const Drawer = styled(MuiDrawer, {
 const Template = ({ children }: any) => {
   const [open, setOpen] = React.useState(true);
   const theme = useTheme();
-  const matches = useMediaQuery(theme.breakpoints.down("sm"));
+  const matchDown = useMediaQuery(theme.breakpoints.down("md"));
+  const matchUp = useMediaQuery(theme.breakpoints.up("lg"));
 
   const toggleDrawer = () => {
-    setOpen(!open);
+    setOpen((prev) => !prev);
   };
   useEffect(() => {
-    if (matches && open) {
+    if (matchDown && open) {
       toggleDrawer();
     }
-  }, [matches]);
+    if (matchUp && !open) {
+      toggleDrawer();
+    }
+  }, [matchDown, matchUp]);
   return (
     <Box sx={{ display: "flex" }}>
       <CssBaseline />
       <AppBar position="absolute" open={open}>
         <Toolbar
           sx={{
-            pr: "24px", // keep right padding when drawer closed
+            pr: 2, // keep right padding when drawer closed
           }}
         >
           <IconButton
@@ -110,13 +113,10 @@ const Template = ({ children }: any) => {
             noWrap
             sx={{ flexGrow: 1 }}
           >
-            Dashboard
+            Panel
           </Typography>
-          <IconButton color="inherit">
-            <Badge badgeContent={4} color="secondary">
-              <NotificationsIcon />
-            </Badge>
-          </IconButton>
+          <NotificationMenu />
+          <AccountMenu />
         </Toolbar>
       </AppBar>
       <Drawer variant="permanent" open={open}>
@@ -148,7 +148,7 @@ const Template = ({ children }: any) => {
         }}
       >
         <Toolbar />
-        <Container sx={{ mt: 7, mb: 7 }}>
+        <Container sx={{ my: 7 }}>
           <Paper elevation={3}>{children}</Paper>
           <Copyright sx={{ pt: 4 }} />
         </Container>
